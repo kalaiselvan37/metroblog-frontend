@@ -26,7 +26,13 @@ export default function Sidebar() {
           </ol>
         </div>
       </div>
-      <div id="application-sidebar" className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-gradient-to-b from-blue-300 to-blue-600 border pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
+      <div id="application-sidebar" className="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-2 start-2 
+      bottom-2 z-[60] w-64 bg-gradient-to-b from-blue-300 to-blue-600 border rounded-lg pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-2 
+      [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 "
+        style={{
+          boxShadow: 'inset 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 -4px 6px rgba(0, 0, 0, 0.1)',
+          background: 'linear-gradient(145deg, #66ccff, #0066ff)',
+        }}>
         <div className="px-6">
           <a className="flex text-xl font-semibold" href="#" aria-label="Brand">
             <img src="/images/Metro_Logo.jpg" alt="" className="rounded-lg" />
@@ -35,17 +41,17 @@ export default function Sidebar() {
         <nav className="flex flex-col flex-wrap w-full p-6 hs-accordion-group" data-hs-accordion-always-open>
           <ul className="space-y-1.5">
             <li>
-              <NavLink to={'/admindashboard/dashboard'} className={({ isActive }) => (`flex items-center gap-x-3.5 py-2 px-2.5 ${isActive ? 'bg-gradient-to-tr from-[#6c6af3d2] to-[#322fb6fd] text-white shadow' : ''} text-sm text-slate-700 hover:text-white rounded-lg hover:bg-gradient-to-tr from-[#6c6af3fa] to-[#322fb6fd] hover:shadow`)}>
+              <NavLink to={'/admindashboard/dashboard'} className={({ isActive }) => (`flex items-center gap-x-3.5 py-2 px-2.5 ${isActive ? 'bg-blue-600 text-white shadow' : ''} text-sm text-slate-700 hover:text-white rounded-lg hover:bg-blue-700 hover:shadow`)}>
                 <i className="fa-solid fa-chart-line"></i>Dashboard
               </NavLink>
             </li>
             <li>
-              <NavLink to={'/admindashboard/blogs'} className={({ isActive }) => (`flex items-center gap-x-3.5 py-2 px-2.5 ${isActive ? 'bg-gradient-to-tr from-[#6c6af3d2] to-[#322fb6fd] text-white shadow' : ''} text-sm text-slate-700 hover:text-white rounded-lg hover:bg-gradient-to-tr from-[#6c6af3d2] to-[#322fb6fd] hover:shadow`)}>
+              <NavLink to={'/admindashboard/blogs'} className={({ isActive }) => (`flex items-center gap-x-3.5 py-2 px-2.5 ${isActive ? 'bg-blue-600 text-white shadow' : ''} text-sm text-slate-700 hover:text-white rounded-lg hover:bg-blue-700 hover:shadow`)}>
                 <i className="fa-solid fa-blog"></i> Create Blogs
               </NavLink>
             </li>
             <li>
-              <NavLink to={'/admindashboard/viewblogs'} className={({ isActive }) => (`flex items-center gap-x-3.5 py-2 px-2.5 ${isActive ? 'bg-gradient-to-tr from-[#6c6af3d2] to-[#322fb6fd] text-white shadow' : ''} text-sm text-slate-700 hover:text-white rounded-lg hover:bg-gradient-to-tr from-[#6c6af3d2] to-[#322fb6fd] hover:shadow`)}>
+              <NavLink to={'/admindashboard/viewblogs'} className={({ isActive }) => (`flex items-center gap-x-3.5 py-2 px-2.5 ${isActive ? 'bg-blue-600 text-white shadow' : ''} text-sm text-slate-700 hover:text-white rounded-lg hover:bg-blue-700 hover:shadow`)}>
                 <i className="fa-solid fa-blog"></i> View Blogs
               </NavLink>
             </li>

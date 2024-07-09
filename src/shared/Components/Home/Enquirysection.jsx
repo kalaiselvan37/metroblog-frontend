@@ -1,8 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/material_blue.css";
+import toast from "react-hot-toast";
 
 export default function Enquirysection() {
     const formRef = useRef(null);
     const loadingIndicatorRef = useRef(null);
+    const [selectedDate, setSelectedDate] = useState(null);
 
     useEffect(() => {
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzaYT6r255hzr7UiC4U5u3-o-8znYZqV54LNMmvHdc5zNhFHbYU-eGT7JetGa_SxMHr/exec';
@@ -15,8 +19,10 @@ export default function Enquirysection() {
             fetch(scriptURL, { method: 'POST', body: new FormData(form) })
                 .then(() => {
                     loadingIndicator.style.display = 'none';
-                    alert("Thank you! Your form is submitted successfully.");
-                    window.location.reload();
+                    toast.success("Thank you! Your form is submitted successfully.")
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
@@ -51,7 +57,18 @@ export default function Enquirysection() {
                         <div className="my-5">
                             <form name="submit-to-google-sheet1" ref={formRef}>
                                 <label htmlFor="datetime1" className="text-lg text-white">Select Date & Time</label>
-                                <input type="text" id="datetime1" name="datetime" placeholder="Select date and Time" className="w-full p-3 my-3 rounded-md" required />
+                                <Flatpickr
+                    value={selectedDate}
+                    onChange={(date) => setSelectedDate(date[0])}
+                    options={{
+                      enableTime: true,
+                      dateFormat: "Y-m-d H:i",
+                      minDate: "today",
+                      minTime: new Date().toLocaleTimeString().split(":").slice(0, 2).join(":")
+                    }}
+                    className="w-full p-3 my-3 rounded-md"
+                    placeholder="Enter the Date and Time"
+                  />
                                 <select name="Insurance" className="w-full p-3 rounded-md" required>
                                     <option value="">Select type of Insurance</option>
                                     <option value="Car Insurance">Car Insurance</option>

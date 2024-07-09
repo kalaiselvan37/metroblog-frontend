@@ -42,7 +42,8 @@ const Blogscreate = () => {
 
     return (
         <div>
-            <div className="text-xl font-semibold text-blue-600">Create a new post</div>
+            <div className="p-3 text-xl font-semibold text-white bg-pink-500 rounded-full shadow-lg w-fit">
+                Create a new post</div>
             <div className="flex gap-3 py-5">
                 <div>
                     <h1 className='font-semibold'>Post Title :</h1>
