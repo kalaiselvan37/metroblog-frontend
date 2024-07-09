@@ -52,7 +52,8 @@ const DetailedBlogpage = () => {
     if (isLoading || !post || allPosts.length === 0 || !nextPost) {
         return <div className="flex items-center justify-center h-screen"><img src="/images/777.gif" alt="" /></div>;
     }
-    const handleWhatsappshare = () => {
+
+    const handleWhatsappShare = () => {
         const url = window.location.href;
         const message = `Check out this article: ${url}`;
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -61,7 +62,28 @@ const DetailedBlogpage = () => {
             : `https://web.whatsapp.com/send?text=${encodeURIComponent(message)}`;
 
         window.open(whatsappUrl, '_blank');
-    }
+    };
+
+    const handleFacebookShare = () => {
+        const url = window.location.href;
+        const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        window.open(facebookShareUrl, '_blank', 'width=600,height=400');
+    };
+
+    const handleTwitterShare = () => {
+        const url = window.location.href;
+        const message = `Check out this article: ${url}`;
+        const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+        window.open(twitterShareUrl, '_blank', 'width=600,height=400');
+    };
+
+    const handleEmailShare = () => {
+        const url = window.location.href;
+        const subject = 'Check out this article';
+        const body = `I found this article interesting and wanted to share it with you: ${url}`;
+        const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(mailtoUrl, '_self');
+    };
 
     return (
         <>
@@ -81,14 +103,17 @@ const DetailedBlogpage = () => {
                 <div className="flex p-2 text-xl">
                     <div className="flex gap-2">
                         <Tooltip showArrow={true} content="Share to Whatsapp" color="primary" placement="bottom">
-                            <div className="p-2 text-xl font-medium rounded-lg cursor-pointer bg-slate-200 hover:bg-slate-300" onClick={handleWhatsappshare}><i className="fa-brands fa-whatsapp" ></i></div>
+                            <div className="p-2 text-xl font-medium rounded-lg cursor-pointer bg-slate-200 hover:bg-slate-300" onClick={handleWhatsappShare}><i className="fa-brands fa-whatsapp" ></i></div>
                         </Tooltip>
                         <Tooltip showArrow={true} content="Share to Facebook" color="primary" placement="bottom">
-                            <div className="p-2 text-xl font-medium rounded-lg cursor-pointer bg-slate-200 hover:bg-slate-300"> <i className="fa-brands fa-facebook"></i></div></Tooltip>
+                            <div className="p-2 text-xl font-medium rounded-lg cursor-pointer bg-slate-200 hover:bg-slate-300" onClick={handleFacebookShare}><i className="fa-brands fa-facebook"></i></div>
+                        </Tooltip>
                         <Tooltip showArrow={true} content="Share to Twitter" color="primary" placement="bottom">
-                            <div className="p-2 text-xl font-medium rounded-lg cursor-pointer bg-slate-200 hover:bg-slate-300"> <i className="fa-brands fa-square-x-twitter"></i></div></Tooltip>
+                            <div className="p-2 text-xl font-medium rounded-lg cursor-pointer bg-slate-200 hover:bg-slate-300" onClick={handleTwitterShare}><i className="fa-brands fa-square-x-twitter"></i></div>
+                        </Tooltip>
                         <Tooltip showArrow={true} content="Share to Mail" color="primary" placement="bottom">
-                            <div className="p-2 text-xl font-medium rounded-lg cursor-pointer bg-slate-200 hover:bg-slate-300"> <i className="fa-solid fa-envelope"></i></div></Tooltip>
+                            <div className="p-2 text-xl font-medium rounded-lg cursor-pointer bg-slate-200 hover:bg-slate-300" onClick={handleEmailShare}><i className="fa-solid fa-envelope"></i></div>
+                        </Tooltip>
                     </div>
                 </div>
                 <div className="p-2 text-lg" dangerouslySetInnerHTML={{ __html: prependBaseUrl(post.content) }} />
