@@ -97,7 +97,7 @@ export default function Dashboarddesign() {
                 </div>
             </div>
             {selectedPost && (
-                <Modal isOpen={isOpen} onOpenChange={onOpenChange} size='4xl' scrollBehavior='inside'>
+                <Modal isOpen={isOpen} onOpenChange={onOpenChange} size='4xl' scrollBehavior='inside' placement='center'>
                     <ModalContent>
                         {() => (
                             <>
