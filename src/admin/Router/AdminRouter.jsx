@@ -1,10 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Adminmain from "../core/Adminmain";
-import Dashboard from "../components/Dashboard/Dashboard";
 import BlogsPage from "../components/BlogsaPage/Blogspage";
+import Dashboard from "../components/Dashboard/Dashboard";
 import Viewblogspage from "../components/ViewblogsPage/Viewblogspage";
-
-
 
 const AdminRouter = () => {
   return (
@@ -17,5 +15,6 @@ const AdminRouter = () => {
       </Route>
     </Routes>
   );
-}
+};
+
 export default AdminRouter;

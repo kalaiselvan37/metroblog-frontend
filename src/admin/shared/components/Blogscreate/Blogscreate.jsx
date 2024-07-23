@@ -13,28 +13,23 @@ const Blogscreate = () => {
 
     const handleCoverImageChange = (e) => {
         const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setCoverImage(reader.result);
-        };
         if (file) {
-            reader.readAsDataURL(file);
+            setCoverImage(file);
         }
     };
+    
 
     const handleCreatePost = async () => {
         try {
-            const formData = {
-                content: editorContent,
-                createdby: createdBy,
-                posttitle: postTitle,
-                coverimage: coverImage,
-                keywords: keywords,
-            };
+            const formData = new FormData();
+            formData.append('content', editorContent);
+            formData.append('createdby', createdBy);
+            formData.append('posttitle', postTitle);
+            formData.append('coverimage', coverImage);
+            formData.append('keywords', keywords);    
             const response = await savepost(formData);
             console.log('Post saved successfully:', response);
             toast.success("Post saved successfully");
-            // window.location.reload();
         } catch (error) {
             console.error('Error saving post:', error);
         }
@@ -99,8 +94,10 @@ const Blogscreate = () => {
                 setContents={editorContent}
                 onChange={setEditorContent}
                 setOptions={{
+                    defaultStyle: "font-family: Arial, sans-serif;",
+                    font: ['Arial'],
                     buttonList: [
-                        ['undo', 'redo', 'font', 'fontSize', 'formatBlock'],
+                        ['undo', 'redo', 'fontSize', 'formatBlock'],
                         ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
                         ['fontColor', 'hiliteColor', 'textStyle'],
                         ['align', 'list', 'lineHeight'],

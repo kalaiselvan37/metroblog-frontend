@@ -1,16 +1,19 @@
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar} from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react";
 import useAuth from "../../shared/services/store/useAuth";
-export default function Topbar(){
-  const {userdetails,logout}=useAuth()
+import { useNavigate } from 'react-router-dom';
+
+export default function Topbar() {
+  const { userdetails, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); 
-    Navigate('/login');
+    logout();
+    navigate('/login');
   };
-  
-    return(
-        <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white  text-sm py-2.5 sm:py-4 lg:ps-[17rem] ">
-        <nav className="flex items-center w-full px-4 mx-auto basis-full sm:px-6 md:px-8" aria-label="Global">
+
+  return (
+    <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white text-sm py-2.5 sm:py-4 lg:ps-[17rem] ">
+      <nav className="flex items-center w-full px-4 mx-auto basis-full sm:px-6 md:px-8" aria-label="Global">
         <div className="me-5 lg:me-0 lg:hidden">
           <a className="flex-none text-xl font-semibold " href="#" aria-label="Brand">Brand</a>
         </div>
@@ -33,31 +36,29 @@ export default function Topbar(){
           </div>
 
           <div className="flex flex-row items-center justify-end gap-2">
-
-              <Dropdown placement="bottom-end">
-                            <DropdownTrigger>
-                              <Avatar
-                                isBordered
-                                as="button"
-                                size="sm"
-                                className="transition-transform "
-                                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                              />
-                            </DropdownTrigger>
-                            <DropdownMenu aria-label="Profile Actions" variant="flat">
-                              <DropdownItem key="profile" className="gap-2 h-14">
-                                <p className="font-semibold">Signed in as</p>
-                                <p className="font-semibold">{userdetails()?.Email}</p>
-                              </DropdownItem>
-                            
-                              <DropdownItem key="logout"  onPress={handleLogout}>
-                                Log Out
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </Dropdown>
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <Avatar
+                  isBordered
+                  as="button"
+                  size="sm"
+                  className="transition-transform "
+                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Profile Actions" variant="flat">
+                <DropdownItem key="profile" className="gap-2 h-14">
+                  <p className="font-semibold">Signed in as</p>
+                  <p className="font-semibold">{userdetails()?.Email}</p>
+                </DropdownItem>
+                <DropdownItem key="logout" onPress={handleLogout}>
+                  Log Out
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </div>
         </div>
       </nav>
     </header>
-    )
+  );
 }

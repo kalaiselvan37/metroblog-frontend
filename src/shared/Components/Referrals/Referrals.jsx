@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import QRious from 'qrious';
+import toast from 'react-hot-toast';
 
 export default function Referrals() {
   const scriptURL1 = 'https://script.google.com/macros/s/AKfycbxaui2ErKZO1NWTxkuFOEnxnTyunGlA4EJCkX4n9XGAnNqmVHxgax5haYh_lgfMrUPT/exec';
@@ -20,8 +21,8 @@ export default function Referrals() {
       fetch(scriptURL1, { method: 'POST', body: new FormData(form) })
         .then(() => {
           loadingIndicator.style.display = 'none';
-          alert("Thank you! your form is submitted successfully.");
-          window.location.reload();
+          toast.success("Thank you! your form is submitted successfully.");
+          form.reset();
         })
         .catch(error => {
           console.error('Error!', error.message);

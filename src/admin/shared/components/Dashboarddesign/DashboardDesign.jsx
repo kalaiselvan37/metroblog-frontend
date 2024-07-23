@@ -27,13 +27,18 @@ export default function Dashboarddesign() {
         const fetchPosts = async () => {
             try {
                 const postData = await getpost({ page, pageSize });
-                setPosts(postData.posts);
+                setPosts(postData.posts.map(post => ({
+                    ...post,
+                    _id: post.id,
+                    createdAt: post.created_date,
+                    updatedAt: post.updated_date
+                })));
                 setTotalPosts(postData.totalPosts);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
         };
-
+    
         fetchPosts();
     }, [page]);
 
@@ -47,7 +52,7 @@ export default function Dashboarddesign() {
     };
 
     const prependBaseUrl = (htmlContent) => {
-        const imgRegex = /<img.*?src="(\/uploads\/images\/.*?\.png)".*?>/g;
+        const imgRegex = /<img.*?src="(\/Upload\/images\/.*?\.png)".*?>/g;
         const updatedContent = htmlContent?.replace(imgRegex, `<img src="${apiurl()}$1" />`);
         return updatedContent;
     };
@@ -66,16 +71,15 @@ export default function Dashboarddesign() {
             <div className='py-10'>
                 <h1 className='text-xl font-semibold'>Blogs in Our Website</h1>
                 <div className="grid grid-cols-1 gap-4 mt-6 md:grid-cols-2 lg:grid-cols-4">
-                    {posts.map((post) => (
+                    {posts?.map((post) => (
                         <div key={post._id} className="overflow-hidden shadow-md rounded-2xl bg-slate-100">
                             <div className='p-3'>
-                                 <img
-                                src={`${apiurl()}${post.coverimage[0]}`}
+                            <img
+                                src={`${apiurl()}${post.coverimage}`}
                                 alt={post.posttitle}
                                 className="object-cover w-full h-40 rounded-2xl"
                             />
                             </div>
-                           
                             <div className="p-4">
                                 <h2 className="text-lg font-semibold">{post.posttitle}</h2>
                                 <p className="text-slate-600">Created by {post.createdby}</p>
@@ -103,11 +107,6 @@ export default function Dashboarddesign() {
                             <>
                                 <ModalHeader>{selectedPost.posttitle}</ModalHeader>
                                 <ModalBody>
-                                    {/* <img
-                                        src={`${apiurl()}${selectedPost.coverimage[0]}`}
-                                        alt={selectedPost.posttitle}
-                                        className="object-cover w-full h-40 mb-4"
-                                    /> */}
                                     <div dangerouslySetInnerHTML={{ __html: prependBaseUrl(selectedPost.content) }} />
                                     <p className="text-slate-600">Created by {selectedPost.createdby}</p>
                                     <p className="text-slate-600">Created at {new Date(selectedPost.createdAt).toLocaleString()}</p>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import apiurl from "../../../admin/shared/services/apiendpoint/apiendpoint";
-import { getpostbyid, getviewpost } from "../../../admin/shared/services/apipost/apipost";
+import { getviewpost } from "../../../admin/shared/services/apipost/apipost";
 import { Tooltip } from "@nextui-org/react";
 
 const DetailedBlogpage = () => {
@@ -15,11 +15,11 @@ const DetailedBlogpage = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const postData = await getpostbyid(id);
                 const postsData = await getviewpost();
+                const postData = postsData.find(p => p.id === parseInt(id));
                 setPost(postData);
                 setAllPosts(postsData);
-                setCurrentIndex(postsData.findIndex(p => p._id === postData._id));
+                setCurrentIndex(postsData.findIndex(p => p.id === postData.id));
                 setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -40,11 +40,18 @@ const DetailedBlogpage = () => {
     }, [post, currentIndex, allPosts]);
 
     const prependBaseUrl = (htmlContent) => {
-        const imgRegex = /<img.*?src="(\/uploads\/images\/.*?\.png)".*?>/g;
-        const updatedContent = htmlContent?.replace(imgRegex, `<img src="${apiurl()}$1" />`);
+        if (!htmlContent) {
+            console.log('HTML content is empty');
+            return '';
+        }
+        const imgRegex = /<img.*?src="(\/Upload\/.*?\.png)".*?>/g;
+        const updatedContent = htmlContent.replace(imgRegex, (match, p1) => {
+            const newSrc = `${apiurl()}${p1}`;
+            return match.replace(p1, newSrc);
+        });
         return updatedContent;
     };
-
+    
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -98,7 +105,7 @@ const DetailedBlogpage = () => {
                         <h1 className="">Post by:</h1>
                         <div className="">{post.createdby}</div>
                     </div>
-                    <div className="text-xl font-medium">{new Date(post.createdAt).toLocaleString()}</div>
+                    <div className="text-xl font-medium">{new Date(post.created_date).toLocaleString()}</div>
                 </div>
                 <div className="flex p-2 text-xl">
                     <div className="flex gap-2">
@@ -126,7 +133,7 @@ const DetailedBlogpage = () => {
                     <Link to="/blogs">
                         <button className="p-3 text-white bg-black rounded-full">Back to blogs</button>
                     </Link>
-                    <Link to={`/detailedblog/${nextPost._id}`} onClick={scrollToTop}>
+                    <Link to={`/detailedblog/${nextPost.id}`} onClick={scrollToTop}>
                         <button className="text-xl font-semibold text-blue-500">Next blog &gt;&gt;</button>
                     </Link>
                 </div>

@@ -19,7 +19,9 @@ const useAuth = create((set) => ({
     const token = localStorage.getItem(tokenname);
     if (token) {
       try {
-        return JSON.parse(window.atob(token.split('.')[1]));
+        const decodedToken = JSON.parse(window.atob(token.split('.')[1]));
+        console.log('Decoded Token:', decodedToken);
+        return decodedToken.data;
       } catch (error) {
         console.error('Error decoding token:', error);
         return null;

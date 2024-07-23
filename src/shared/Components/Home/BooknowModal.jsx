@@ -26,9 +26,7 @@ export default function BooknowModal(props) {
         .then(() => {
           loadingIndicator.style.display = 'none';
           toast.success("Thank you! Your form is submitted successfully.")
-          setTimeout(() => {
-            window.location.reload();
-        }, 3000);
+          form.reset();
         })
         .catch(error => {
           console.error('Error!', error.message);

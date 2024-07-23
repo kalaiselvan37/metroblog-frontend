@@ -18,7 +18,7 @@ export default function Blogs() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const postData = await getpost({ page, pageSize, search });
+                const postData = await getpost({ page, pageSize, search, });
                 setPosts(postData.posts);
                 setTotalPosts(postData.totalPosts);
             } catch (error) {
@@ -42,6 +42,7 @@ export default function Blogs() {
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
+        setPage(1);
     };
 
     const handlePageChange = (page) => {
@@ -75,11 +76,11 @@ export default function Blogs() {
             </div>
             <div className="max-w-[100rem] mx-auto">
                 <div className="grid grid-cols-1 gap-10 p-2 py-4 lg:grid-cols-2">
-                    {posts.map((post) => (
+                    {posts?.map((post) => (
                         <div className="relative h-full transition-transform duration-300 ease-in-out rounded-lg lg:flex custom-shadow custom-scale" key={post._id}>
                             <div className="w-full" style={{ maxWidth: '800px', maxHeight: '600px', overflow: 'hidden' }}>
                                 <img
-                                    src={`${apiurl()}${post.coverimage[0]}`}
+                                     src={`${apiurl()}${post.coverimage}`}
                                     alt={post.posttitle}
                                     className="object-cover h-full rounded-l-lg"
                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -91,7 +92,7 @@ export default function Blogs() {
                                 </h1>
                                 <p className="p-3 group-hover:text-white">{trimContent(post.content)}</p>
                                 <div className="flex items-center justify-center py-2">
-                                    <Link to={`/detailedblog/${post._id}`} className="p-2 text-blue-500 hover:text-[#024BA2] group-hover:text-white" onClick={scrollToTop}>Read this Article &gt;</Link>
+                                    <Link to={`/detailedblog/${post.id}`} className="p-2 text-blue-500 hover:text-[#024BA2] group-hover:text-white" onClick={scrollToTop}>Read this Article &gt;</Link>
                                 </div>
                             </div>
                             <div className="absolute bottom-0 right-0 w-16 h-16 text-transparent  bg-[#024BA2] rounded-tl-full">

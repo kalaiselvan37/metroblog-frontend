@@ -1,7 +1,6 @@
 const apiurl=()=>{
    
-    // var url="http://192.168.0.26:5000";
-    var url="https://metroblog-backend.onrender.com"
+    var url="http://192.168.0.26/metro-blog-php";
 
     return url;
 }

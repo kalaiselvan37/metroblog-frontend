@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button, Modal, ModalContent, ModalHeader, ModalBody, Input, ModalFooter, useDisclosure } from "@nextui-org/react";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Input } from "@nextui-org/react";
+import SunEditor from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
 import { deletepost, getviewpost, updatepost } from '../../services/apipost/apipost';
 import toast from 'react-hot-toast';
+import apiurl from '../../services/apiendpoint/apiendpoint';
 
 const Viewblogs = () => {
     const [posts, setPosts] = useState([]);
@@ -20,64 +21,72 @@ const Viewblogs = () => {
         const fetchPosts = async () => {
             try {
                 const postData = await getviewpost();
-                setPosts(postData);
+                const baseUrl = apiurl(); // Get the base URL dynamically
+                const adjustedPostData = postData.map(post => {
+                    // Adjust image URLs in post content
+                    const adjustedContent = post.content.replace(/src="\/Upload\//g, `src="${baseUrl}/Upload/`);
+                    return { ...post, content: adjustedContent };
+                });
+                setPosts(adjustedPostData);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
         };
-
+    
         fetchPosts();
     }, []);
+    
+    
 
     const handleEdit = (post) => {
         setEditingPost(post);
-        setContent(post.content);
+        const baseUrl = apiurl(); // Get the base URL dynamically
+        const adjustedContent = post.content.replace(/src="\/Upload\//g, `src="${baseUrl}/Upload/`);
+        setContent(adjustedContent);
         setPostTitle(post.posttitle);
         setCreatedBy(post.createdby);
-        setKeywords(post.keywords); 
+        setKeywords(post.keywords);
         onEditOpen(true);
     };
+    
+    
 
-    const handleDelete = async (postId) => {
+    const handleDelete = (post) => {
+        setEditingPost(post.id);
         onDeleteOpen(true); 
-        setEditingPost(postId);
     };
-
-    const confirmDelete = async () => {
+    
+    const confirmDelete = async () => {    
         try {
             await deletepost(editingPost);
-            setPosts(posts.filter(post => post._id !== editingPost));
-            toast.success("Post deleted sccessfully");
+            setPosts(prevPosts => prevPosts.filter(post => post.id !== editingPost));
+            toast.success("Post deleted successfully");
             onDeleteOpenChange();
         } catch (error) {
-            console.error('Error deleting post:', error);
+            toast.error("Failed to delete post");
         }
+    };
+    
+    const handleSave = async () => {
+        const cleanedKeywords = keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword);
+        const updatedPost = {
+            id: editingPost.id,
+            content,
+            posttitle,
+            createdby,
+            keywords: cleanedKeywords.join(', ')
+        };
+        const updated = await updatepost(editingPost.id, updatedPost);
+
+        if (updated && updated.id) {
+            setPosts(posts.map(post => (post.id === updated.id ? updated : post)));
+            toast.success("Post updated successfully");
+        } else {
+            console.error('Updated post does not have id:', updated);
+        }
+        onEditOpenChange();
     };
 
-    const handleSave = async () => {
-        try {
-            const cleanedKeywords = keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword);
-            const updatedPost = {
-                content,
-                posttitle,
-                createdby,
-                keywords: cleanedKeywords.join(', ') 
-            };
-            const updated = await updatepost(editingPost._id, updatedPost);
-    
-            if (updated && updated._id) {
-                setPosts(posts.map(post => (post._id === updated._id ? updated : post)));
-                toast.success("Post updated Sccessfully");
-            } else {
-                console.error('Updated post does not have _id:', updated);
-            }
-    
-            onEditOpenChange();
-        } catch (error) {
-            console.error('Error updating post:', error);
-        }
-    };
-    
     return (
         <div>
             <Table aria-label="Example static collection table">
@@ -88,14 +97,14 @@ const Viewblogs = () => {
                     <TableColumn>Actions</TableColumn>
                 </TableHeader>
                 <TableBody>
-                    {posts.map((post) => (
-                        <TableRow key={post._id}>
+                    {posts?.map((post) => (
+                        <TableRow key={post.id}>
                             <TableCell>{post.createdby}</TableCell>
                             <TableCell>{post.posttitle}</TableCell>
-                            <TableCell>{new Date(post.createdAt).toLocaleString()}</TableCell>
+                            <TableCell>{new Date(post.created_date).toLocaleString()}</TableCell>
                             <TableCell>
                                 <Button color='success' onClick={() => handleEdit(post)} className='mx-3'>Edit</Button>
-                                <Button color='danger' onClick={() => handleDelete(post._id)}>Delete</Button>
+                                <Button color='danger' onClick={() => handleDelete(post)}>Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -111,7 +120,25 @@ const Viewblogs = () => {
                                 <Input label="Title" value={posttitle} onChange={(e) => setPostTitle(e.target.value)} fullWidth />
                                 <Input label="Posted By" value={createdby} onChange={(e) => setCreatedBy(e.target.value)} fullWidth />
                                 <Input label="Keywords" value={keywords} onChange={(e) => setKeywords(e.target.value)} fullWidth />
-                                <ReactQuill value={content} onChange={setContent} />
+                                <SunEditor 
+                                    setContents={content}
+                                    onChange={setContent}
+                                    setOptions={{
+                                        buttonList: [
+                                            ['undo', 'redo'],
+                                            ['bold', 'italic', 'underline', 'strike'],
+                                            ['font', 'fontSize', 'formatBlock'],
+                                            ['paragraphStyle', 'blockquote'],
+                                            ['fontColor', 'hiliteColor', 'textStyle'],
+                                            ['removeFormat'],
+                                            ['outdent', 'indent'],
+                                            ['align', 'horizontalRule', 'list', 'lineHeight'],
+                                            ['table', 'link', 'image', 'video', 'audio'],
+                                            ['fullScreen', 'showBlocks', 'codeView', 'preview', 'print'],
+                                            ['save']
+                                        ],
+                                    }}
+                                />
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="light" onClick={onClose}>Cancel</Button>
@@ -123,7 +150,7 @@ const Viewblogs = () => {
             </Modal>
             <Modal isOpen={isDeleteOpen} onOpenChange={onDeleteOpenChange}>
                 <ModalContent>
-                    {(onClose) => (
+                    {() => (
                         <>
                             <ModalHeader><h3>Delete Post</h3></ModalHeader>
                             <ModalBody>

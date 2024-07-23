@@ -21,7 +21,14 @@ const AppRouter = () => {
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/detailedblog/:id" element={<DetailedBlogpage/>} />
         </Route>
-        <Route path="/admindashboard/*" element={<ProtectedRoute allowedRoles={['Admin']}><AdminRouter /></ProtectedRoute>} />
+        <Route
+          path="/admindashboard/*"
+          element={
+            <ProtectedRoute allowedRoles={['Admin']}>
+              <AdminRouter />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

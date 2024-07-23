@@ -14,10 +14,11 @@ export default function LoginPage() {
     const handlelogin = async (e) => {
         e.preventDefault();
         const res = await apilogin(formdata);
-        if (res.message === "Login successful") {
+        if (res.message === "Successful login") {
             toast.success("Login successful");
+            login(res.jwt);
             navigate('/admindashboard');
-            login(res.token);
+            
         } else {
             toast.error(res.message || "An error occurred");
         }

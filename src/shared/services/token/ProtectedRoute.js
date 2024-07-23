@@ -15,9 +15,9 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     if (!isLoggedIn) {
       console.log('User not logged in, redirecting to /login');
       navigate('/login');
-    // eslint-disable-next-line react/prop-types
     } else if (allowedRoles && allowedRoles.length > 0 && !allowedRoles.includes(userDetails?.Role)) {
-      navigate('/admindashboard');
+      console.log(`User role (${userDetails?.Role}) not authorized, redirecting to /`);
+      navigate('/');
     }
   }, [isLoggedIn, allowedRoles, userdetails, navigate]);
 

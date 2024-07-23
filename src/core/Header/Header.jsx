@@ -21,7 +21,16 @@ export default function Header() {
     const collapseMenu = document.getElementById('collapseMenu');
     const links = collapseMenu.getElementsByTagName('a');
 
-    const handleLinkClick = () => {
+    const handleLinkClick = (event) => {
+      const href = event.target.getAttribute('href');
+      if (href.startsWith('#')) {
+        event.preventDefault();
+        const elementId = href.slice(1);
+        document.getElementById(elementId).scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
       setIsMenuOpen(false);
     };
 
@@ -72,19 +81,19 @@ export default function Header() {
             <Link to="/" className='lg:hover:text-[#007bff] text-white max-lg:text-white block font-semibold text-lg'>Home</Link>
           </li>
           <li className='px-3 max-lg:border-b max-lg:py-2 max-lg:rounded'>
-            <Link to="" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>About Us</Link>
+            <a href="#aboutus" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>About Us</a>
           </li>
           <li className='px-3 max-lg:border-b max-lg:py-2 max-lg:rounded'>
-            <Link to="" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Services</Link>
+            <a href="#services" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Services</a>
           </li>
-          <li className='px-3 max-lg:border-b max-lg:py-2 max-lg:rounded'>
+          {/* <li className='px-3 max-lg:border-b max-lg:py-2 max-lg:rounded'>
             <Link to="" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Insurance</Link>
-          </li>
+          </li> */}
           <li className='px-3 max-lg:border-b max-lg:py-2 max-lg:rounded'>
             <Link to="/blogs" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Blogs</Link>
           </li>
           <li className='px-3 max-lg:border-b max-lg:py-2 max-lg:rounded'>
-            <Link to="" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Contact Us</Link>
+            <a href="#contactus" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Contact Us</a>
           </li>
           <li>
             <Link to="" className="lg:hidden">

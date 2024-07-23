@@ -4,6 +4,8 @@ import WhatsappModal from './WhatsappModal';
 import Serviceslide from './Serviceslide';
 import Reviewslide from './Reviewslide';
 import Enquirysection from './Enquirysection';
+import { useInsuranceQuery } from '../../services/Insurancepdf/insurancepdfs';
+
 
 
 export default function Herosection() {
@@ -25,6 +27,18 @@ export default function Herosection() {
   const handleWhatsAppModalClose = () => {
     setIsWhatsAppModalOpen(false);
   };
+
+  const {
+    insuranceType,
+    option1,
+    option2,
+    options1,
+    options2,
+    handleInsuranceTypeChange,
+    handleOption1Change,
+    handleOption2Change,
+    handleCheckNow,
+  } = useInsuranceQuery();
 
   return (
     <div>
@@ -125,7 +139,7 @@ export default function Herosection() {
         </div>
       </div>
     </section>
-    <Serviceslide/>
+    <Serviceslide id='services'/>
     <section>
       <div className="bg-[#121D32] xl:h-[39vh] p-2 ">
         <div className="max-w-[75rem] mx-auto py-10">
@@ -238,45 +252,72 @@ export default function Herosection() {
           </div>
         </div>
       </div>
-      <section className="mt-10 bg-[#121D32] lg:h-[60vh] " id="insurancequery">
-        <div className="max-w-[100rem] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 ">
-            <div className="">
-              <img src="/images/family-insurance.png" alt="" className="lg:h-[60vh]"/>
+      <section className="mt-10 bg-[#121D32] lg:h-[60vh]" id="insurancequery">
+      <div className="max-w-[100rem] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 ">
+          <div className="">
+            <img src="/images/family-insurance.png" alt="" className="lg:h-[60vh]"/>
+          </div>
+          <div className="lg:py-32">
+            <div className="max-w-4xl mx-auto space-y-3">
+              <h1 className="text-2xl font-bold text-center text-white lg:text-5xl">Want to know about Your Policy?</h1>
+              <p className="text-lg text-center text-white lg:text-xl">Understand the benefits of your policy by reviewing the terms and conditions in clear language. Identify the strengths, weaknesses, and any missing features in your insurance coverage.</p>
             </div>
-            <div className="lg:py-32">
-              <div className="max-w-4xl mx-auto space-y-3">
-                <h1 className="text-2xl font-bold text-center text-white lg:text-5xl">Want to know about Your Policy?</h1>
-                <p className="text-lg text-center text-white lg:text-xl">Understand the benefits of your policy by reviewing the terms and conditions in clear language. Identify the strengths, weaknesses, and any missing features in your insurance coverage.</p>
-              </div>
-              <div className="p-2 mx-auto mt-5 max-w-fit">
-                <div className="flex flex-wrap gap-4 p-4 bg-white rounded-lg">
-                  <div>
-                    <select id="insuranceType" className="w-full p-3 border-2 rounded-xl">
-                      <option value="">Select Insurance</option>
-                      <option value="Health Insurance">Health Insurance</option>
-                      <option value="Term Insurance">Term Insurance</option>
-                    </select>
-                  </div>
-                  <div>
-                    <select id="selectBox1" className="w-full p-3 border-2 rounded-xl">
-                      <option value="">Select an Option</option>
-                    </select>
-                  </div>
-                  <div>
-                    <select id="selectBox2" className="w-full p-3 border-2 rounded-xl">
-                      <option value="">Select an Option</option>
-                    </select>
-                  </div>
-                  <div>
-                    <button id="checkNow" className="p-3 text-white bg-[#007bff] rounded-lg w-36">Check Now</button>
-                  </div>
+            <div className="p-2 mx-auto mt-5 max-w-fit">
+              <div className="flex flex-wrap gap-4 p-4 bg-white rounded-lg">
+                <div>
+                  <select 
+                    id="insuranceType" 
+                    className="w-full p-3 border-2 rounded-xl"
+                    value={insuranceType}
+                    onChange={handleInsuranceTypeChange}
+                  >
+                    <option value="">Select Insurance</option>
+                    <option value="Health Insurance">Health Insurance</option>
+                    <option value="Term Insurance">Term Insurance</option>
+                  </select>
                 </div>
+                <div>
+                  <select 
+                    id="selectBox1" 
+                    className="w-full p-3 border-2 rounded-xl"
+                    value={option1}
+                    onChange={handleOption1Change}
+                  >
+                    <option value="">Select an Option</option>
+                    {options1.map((opt, index) => (
+                      <option key={index} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select 
+                    id="selectBox2" 
+                    className="w-full p-3 border-2 rounded-xl"
+                    value={option2}
+                    onChange={handleOption2Change}
+                  >
+                    <option value="">Select an Option</option>
+                    {options2.map((opt, index) => (
+                      <option key={index} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <button 
+                    id="checkNow" 
+                    className="p-3 text-white bg-[#007bff] rounded-lg w-36"
+                    onClick={handleCheckNow}
+                  >
+                    Check Now
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      </section>
+    </section>
     <Reviewslide/>
       </section>
       <Enquirysection/>
