@@ -62,17 +62,17 @@ export default function Herosection() {
       </section>
       <BooknowModal isOpen={isBookNowModalOpen} onClose={handleBookNowModalClose} />
       <WhatsappModal isOpen={isWhatsAppModalOpen} onClose={handleWhatsAppModalClose} />
-      <section className="bg-[url(/images/pattern-png-transparent-4.png)] lg:h-[50vh] bg-cover bg-no-repeat flex items-center py-10">
+      <section className="bg-[url(/images/pattern-png-transparent-4.png)] lg:h-[65vh] w-full  bg-cover bg-no-repeat flex items-center justify-center">
       <div className="max-w-[75rem] mx-auto">
         <div className="grid grid-cols-1 gap-5 p-2 lg:grid-cols-3">
 
-          <div className="relative transition-transform duration-300 ease-in-out hover:scale-105">
+        <div className="relative transition-transform duration-300 ease-in-out hover:scale-105">
             <div className="absolute top-0 right-0 flex items-center justify-center w-32 overflow-hidden rounded-bl-full h-28 bg-[#121D32]">
-              <img className="object-cover w-14" src="/images/hand-holding-usd.png" alt="Image"/>
-            </div> 
+                <img className="object-cover w-14" src="/images/hand-holding-usd.png" alt="Image"/>
+            </div>            
             <div className="p-4 bg-white rounded-lg shadow-md">
-              <h1 className="lg:text-[27px] text-xl font-bold">Save your Money</h1>
-              <p className="my-10 leading-loose">Our primary goal at METRO is to <br/> empower our clients with the tools and resources they need to 
+              <h1 className="text-xl font-bold lg:text-3xl">Save your <br /> Money</h1>
+              <p className="my-10 leading-loose"> Our primary goal at METRO is to <br/> empower our clients with the tools and resources they need to 
                 make informed decisions about their insurance coverage while saving money in the process.From auto and home 
                 insurance to life and health coverage, we tailor our solutions to fit your unique needs and budget. </p>
             </div>
@@ -83,27 +83,29 @@ export default function Herosection() {
                 <img className="object-cover w-14" src="/images/money-transfer-coin-arrow.png" alt="Image"/>
             </div>            
             <div className="p-4 bg-white rounded-lg shadow-md">
-              <h1 className="text-xl font-bold lg:text-3xl">Get free quote</h1>
+              <h1 className="text-xl font-bold lg:text-3xl">Get free <br /> quote</h1>
               <p className="my-10 leading-loose">Whether you&lsquo;re in the market for <br/> auto, home, life, or any other type of insurance, our user-friendly online quote 
                 tool makes it easy to get started. Simply provide us with some basic information about yourself and your coverage 
                 preferences, and we&lsquo;ll generate a personalized quote for you in minutes.</p>
             </div>
           </div>
+          
           <div className="relative transition-transform duration-300 ease-in-out hover:scale-105">
             <div className="absolute top-0 right-0 flex items-center justify-center w-32 overflow-hidden rounded-bl-full h-28 bg-[#121D32]">
               <img className="object-cover w-14" src="/images/time-fast.png" alt="Image"/>
             </div> 
             <div className="p-4 bg-white rounded-lg shadow-md">
-              <h1 className="text-xl font-bold lg:text-3xl">Fast & reliable</h1>
+              <h1 className="text-xl font-bold lg:text-3xl">Fast & <br /> reliable</h1>
               <p className="my-10 leading-loose">With our streamlined processes <br/> and cutting-edge technology, we make it easy for you to get the coverage you need 
                 quickly and efficiently. Whether you&lsquo;re applying for a new policy, claim, or simply seeking information, 
                 our dedicated team is here to ensure a smooth and hassle-free experience every step of the way.</p>
             </div>
           </div>
+          
         </div>
       </div>
     </section>
-    <section className="bg-[#11B0C9] lg:h-[80vh] flex items-center p-10" id="aboutus">
+    <section className="bg-[#11B0C9] lg:h-[80vh] flex items-center p-10 lg:relative" id="aboutus">
       <div className="max-w-[75rem] mx-auto">
         <div className="grid grid-cols-1 gap-5 p-2 mb-5 lg:grid-cols-2">
           <div className="relative">
@@ -140,8 +142,8 @@ export default function Herosection() {
       </div>
     </section>
     <Serviceslide id='services'/>
-    <section>
-      <div className="bg-[#121D32] xl:h-[39vh] p-2 ">
+    <section className='lg:relative'>
+      <div className="bg-[#121D32] lg:h-[42vh] p-2">
         <div className="max-w-[75rem] mx-auto py-10">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             <div className="">
@@ -200,7 +202,7 @@ export default function Herosection() {
         </div>
       </div>
     </section>
-    <section className="bg-[url(/images/pattern-png-transparent-4.png)] bg-cover bg-no-repeat min-h-screen py-10">
+    <section className="bg-[url(/images/pattern-png-transparent-4.png)] bg-cover bg-no-repeat min-h-screen py-10 lg:relative">
       <div className="">
         <div className="flex items-center justify-center">
           <div className="flex">
@@ -263,7 +265,7 @@ export default function Herosection() {
               <h1 className="text-2xl font-bold text-center text-white lg:text-5xl">Want to know about Your Policy?</h1>
               <p className="text-lg text-center text-white lg:text-xl">Understand the benefits of your policy by reviewing the terms and conditions in clear language. Identify the strengths, weaknesses, and any missing features in your insurance coverage.</p>
             </div>
-            <div className="p-2 mx-auto mt-5 max-w-fit">
+            <div className="max-w-full p-2 mx-auto mt-5">
               <div className="flex flex-wrap gap-4 p-4 bg-white rounded-lg">
                 <div>
                   <select 
@@ -320,7 +322,10 @@ export default function Herosection() {
     </section>
     <Reviewslide/>
       </section>
+      <div id='buyinsurance'>
       <Enquirysection/>
+
+      </div>
     </div>
   );
 }

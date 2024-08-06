@@ -3,7 +3,7 @@ import QRious from 'qrious';
 import toast from 'react-hot-toast';
 
 export default function Referrals() {
-  const scriptURL1 = 'https://script.google.com/macros/s/AKfycbxaui2ErKZO1NWTxkuFOEnxnTyunGlA4EJCkX4n9XGAnNqmVHxgax5haYh_lgfMrUPT/exec';
+  const scriptURL1 = 'https://script.google.com/macros/s/AKfycbzZ_hmbb87M0PlD61GW2Ijkmge4svQ6ANXGOZNdm7hamE0sV4Y2WJxeYKAwJ2GDzKlZqw/exec';
   const formRef = useRef(null);
   const loadingIndicatorRef = useRef(null);
   const customerIdRef = useRef(null);

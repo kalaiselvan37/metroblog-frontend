@@ -49,7 +49,7 @@ export default function Agentregistration() {
   useEffect(() => {
     const form = formRef.current;
     const loadingIndicator = loadingIndicatorRef.current;
-    const scriptURL1 = 'https://script.google.com/macros/s/AKfycbwRJcnEqr6Rd-WlYi_Z5rcXWCDk9NH0il5YdpgUF5NMfLyGAef48VTXuHWF6OVXkyNTMw/exec';
+    const scriptURL1 = 'https://script.google.com/macros/s/AKfycbyKPRDvBsUgFjsReu1v2kZllTHXQeEm_6d1f8WW3XzIBmsESWDwyQpic_Tt73u-0aTL0w/exec';
 
     const handleSubmit = (e) => {
       e.preventDefault();

@@ -1,4 +1,11 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
     return (
         <div>
             <footer className="bg-[#004CA1] " id="contactus">
@@ -14,9 +21,10 @@ export default function Footer() {
                             <div>
                                 <h4 className="mb-6 text-lg font-semibold text-white">Navigation</h4>
                                 <ul className="space-y-4">
-                                    <li><a href="#home" className="text-gray-300 hover:text-white text-[15px]">Home</a></li>
+                                    <li><Link to="/" onClick={scrollToTop} className="text-gray-300 hover:text-white text-[15px]">Home</Link></li>
                                     <li><a href="#aboutus" className="text-gray-300 hover:text-white text-[15px]">About</a></li>
                                     <li><a href="#services" className="text-gray-300 hover:text-white text-[15px]">Services</a></li>
+                                    <li><Link to="/blogs" onClick={scrollToTop} className="text-gray-300 hover:text-white text-[15px]">Blogs</Link></li>
                                     <li><a href="#contact" className="text-gray-300 hover:text-white text-[15px]">Contact</a></li>
                                 </ul>
                             </div>

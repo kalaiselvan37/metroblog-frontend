@@ -9,7 +9,7 @@ export default function Login(props) {
       style={{ backgroundImage: "url('/images/family-moving-using-boxes.jpg')" }}
     >
       <div className="px-16 py-10 bg-gray-800 bg-opacity-50 shadow-lg rounded-xl backdrop-blur-md max-sm:px-8">
-        <div className="text-white">
+        <div className="text-white ">
           <div className="flex flex-col items-center mb-5">
             <img src="/images/Metro_Logo.jpg" width="150" alt="" className="mb-3 rounded-xl" />
             <h1 className="mb-2 text-xl">Welcome to</h1>

@@ -36,7 +36,7 @@ export default function Serviceslide () {
     },[])
 
     return(
-        <section className="bg-[url(/images/pattern-png-transparent-4.png)] py-10 bg-cover bg-no-repeat lg:h-[70vh] p-2" id="services">
+        <section className="bg-[url(/images/pattern-png-transparent-4.png)] py-10 bg-cover bg-no-repeat lg:h-[80vh] p-2 lg:relative" id="services">
         <div className="">
         <div className="flex items-center justify-center">
           <div className="flex">

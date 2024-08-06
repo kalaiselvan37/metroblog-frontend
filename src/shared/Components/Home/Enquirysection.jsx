@@ -9,7 +9,7 @@ export default function Enquirysection() {
     const [selectedDate, setSelectedDate] = useState(null);
 
     useEffect(() => {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzaYT6r255hzr7UiC4U5u3-o-8znYZqV54LNMmvHdc5zNhFHbYU-eGT7JetGa_SxMHr/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwxlpdP6w5K60J3M7q4oa1VLZQQUVls3NXJWorcXBZWwSeCO3Xd6nHeCrbHF3z-xauNgA/exec';
         const form = formRef.current;
         const loadingIndicator = loadingIndicatorRef.current;
 
@@ -38,7 +38,7 @@ export default function Enquirysection() {
     }, []);
 
     return (
-        <section className="relative" id="buyinsurance">
+        <section className="relative" >
             <div className="relative flex">
                 <div className="bg-[url(/images/get-a-quote-bg.jpg)] bg-no-repeat bg-cover h-[80vh] w-[65%]"></div>
                 <div className="bg-[url(/images/Layer31.png)] bg-[#11B0C9] bg-no-repeat bg-cover h-[80vh] w-[35%]">

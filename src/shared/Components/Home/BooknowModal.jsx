@@ -13,7 +13,7 @@ export default function BooknowModal(props) {
   useEffect(() => {
     if (!isOpen) return;
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzaYT6r255hzr7UiC4U5u3-o-8znYZqV54LNMmvHdc5zNhFHbYU-eGT7JetGa_SxMHr/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwxlpdP6w5K60J3M7q4oa1VLZQQUVls3NXJWorcXBZWwSeCO3Xd6nHeCrbHF3z-xauNgA/exec';
     const form = formRef.current;
     const loadingIndicator = loadingIndicatorRef.current;
 

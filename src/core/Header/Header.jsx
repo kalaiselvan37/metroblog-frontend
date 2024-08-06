@@ -2,20 +2,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const toggleBtn = document.getElementById('toggle');
-    const handleClick = () => {
-      setIsMenuOpen(prevState => !prevState);
-    };
+  const handleToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
 
-    toggleBtn.addEventListener('click', handleClick);
-
-    return () => {
-      toggleBtn.removeEventListener('click', handleClick);
-    };
-  }, []);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const collapseMenu = document.getElementById('collapseMenu');
@@ -31,7 +26,6 @@ export default function Header() {
           block: 'center'
         });
       }
-      setIsMenuOpen(false);
     };
 
     for (let link of links) {
@@ -42,7 +36,7 @@ export default function Header() {
         link.removeEventListener('click', handleLinkClick);
       }
     };
-  }, [isMenuOpen]);
+  }, []);
 
   return (
     <header className='sticky top-0 z-20 shadow-md py-4 px-4 sm:px-10 bg-[#004CA1] min-h-[70px]'>
@@ -53,11 +47,11 @@ export default function Header() {
           </h1>
         </Link>
         <div className='flex gap-4 lg:order-1 max-sm:ml-auto'>
-          <Link to="" className="hidden sm:block">
+          <a href="#buyinsurance" className="hidden sm:block">
             <button className='px-4 py-2 text-lg rounded-lg font-bold text-[#004CA1] border-2 bg-white transition-all ease-in-out duration-300 hover:bg-transparent hover:text-white'>
               Buy Insurance
             </button>
-          </Link>
+          </a>
           <Link to="/agentregistration" className="hidden sm:block">
             <button className='px-4 py-2 text-lg rounded-lg font-bold text-[#004CA1] border-2 bg-white transition-all ease-in-out duration-300 hover:bg-transparent hover:text-white'>
               Agent Registration
@@ -68,7 +62,7 @@ export default function Header() {
               Login
             </button>
           </Link>
-          <button id="toggle" className='lg:hidden ml-7'>
+          <button id="toggle" className='lg:hidden ml-7' onClick={handleToggle}>
             <svg className="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd"
                 d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
@@ -76,7 +70,7 @@ export default function Header() {
             </svg>
           </button>
         </div>
-        <ul id="collapseMenu" className={`lg:flex lg:space-x-5 ${isMenuOpen ? 'block' : 'hidden'} max-lg:space-y-2 max-lg:py-4 max-lg:w-full`}>
+        <ul id="collapseMenu" className={`lg:flex lg:space-x-5 ${menuOpen ? 'block' : 'hidden'} max-lg:space-y-2 max-lg:py-4 max-lg:w-full`}>
           <li className='max-lg:border-b max-lg:bg-[#007bff] max-lg:py-2 px-3 max-lg:rounded'>
             <Link to="/" className='lg:hover:text-[#007bff] text-white max-lg:text-white block font-semibold text-lg'>Home</Link>
           </li>
@@ -90,17 +84,17 @@ export default function Header() {
             <Link to="" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Insurance</Link>
           </li> */}
           <li className='px-3 max-lg:border-b max-lg:py-2 max-lg:rounded'>
-            <Link to="/blogs" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Blogs</Link>
+            <Link to="/blogs" onClick={scrollToTop} className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Blogs</Link>
           </li>
           <li className='px-3 max-lg:border-b max-lg:py-2 max-lg:rounded'>
             <a href="#contactus" className='lg:hover:text-[#007bff] text-white block font-semibold text-lg'>Contact Us</a>
           </li>
           <li>
-            <Link to="" className="lg:hidden">
+            <a href="#buyinsurance" className="lg:hidden">
               <button className='px-4 py-2 text-lg rounded-lg font-bold text-[#004CA1] border-2 bg-white transition-all ease-in-out duration-300 hover:bg-transparent hover:text-white'>
                 Buy Insurance
               </button>
-            </Link>
+            </a>
           </li>
           <li>
             <Link to="/agentregistration" className="lg:hidden">

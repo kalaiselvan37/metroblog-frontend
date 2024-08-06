@@ -17,7 +17,7 @@ export default function WhatsappModal({ isOpen, onClose }) {
     var Location = formData.get('Location1');
     var Date = formData.get('dateandtime');
   
-    var phonenumber = "8124213593"; 
+    var phonenumber = "9444316561"; 
     var url = "https://wa.me/" + phonenumber + "?text=" +
       "*Name:* " + name + "%0a" +
       "*Email:* " + email + "%0a" +
